@@ -3,10 +3,10 @@ requires = ["setuptools >= 77.0.3"]
 build-backend = "setuptools.build_meta"
 
 [project]
-requires-python = ">= 3.10"
+requires-python = "== 3.14.*"
 version = "0.1.0"
 name = "project_test_specktakel"
-authors = [name = "Julian"]
+authors = [{name = "Julian"}]
 dependencies = [
   "scipy",
   "numpy",
