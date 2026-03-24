@@ -6,3 +6,8 @@ build-backend = "setuptools.build_meta"
 requires-python = ">= 3.10"
 version = "0.1.0"
 name = "project_test_specktakel"
+authors = [name = "Julian"]
+dependencies = [
+  "scipy",
+  "numpy",
+]
