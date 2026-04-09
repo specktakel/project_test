@@ -49,3 +49,7 @@ jobs:
       with:
         name: api-for-${{ github.sha }}
         path: docs/api
+    - name: Build and Commit
+      uses: sphinx-notes/pages@v3
+      with:
+        documentation_path: docs
