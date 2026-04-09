@@ -49,10 +49,11 @@ jobs:
 
     - name: Output url
       run: | 
-        echo ${{ steps.deployment.outputs.page_url }}
+        echo "$steps.deployment.outputs.page_url"
 
 
   deploy:
+    name: Deploy docs
     needs: build
     permissions:
       pages: write
@@ -62,8 +63,6 @@ jobs:
       url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
     steps:
-      - name: Output url
-        run: echo ${{ steps.deployment.outputs.page_url }}
       - name: Deploy to GitHub Pages
         # if: github.event_name == 'push' && github.ref_name == 'master'
         id: deployment
