@@ -1,0 +1,63 @@
+name: Docs
+on:
+  push:
+    branches: [ "master" ]
+  pull_request:
+    branches: [ "master" ]
+
+# Allow only one concurrent deployment, skipping runs queued between the run in-progress and latest queued.
+# However, do NOT cancel in-progress runs as we want to allow these production deployments to complete.
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+jobs:
+  build:
+    name: Build Docs
+    runs-on: ubuntu-latest
+    steps:
+
+    - uses: actions/checkout@v6
+
+    - name: Set up python
+      uses: actions/setup-python@v6
+      with:
+        python-version: '3.14'
+
+    - name: Install package
+      run: |
+        python -m pip install --upgrade pip
+        python -m pip install sphinx nbsphinx myst-parser
+        python -m pip install .
+
+    - name: Generate API Docs
+      run: |
+        sphinx-apidoc -f -e -o docs/api project_test
+        sphinx-build -M html docs/ docs/_build
+
+    - name: Setup Pages
+      uses: actions/configure-pages@v6
+
+    - name: Upload artifact
+      uses: actions/upload-pages-artifact@v4
+      with:
+        # Upload docs subdirectory
+        path: './docs/_build'
+
+  deploy:
+    name: Deploy docs
+    needs: build
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy to GitHub Pages
+        # if: github.event_name == 'push' && github.ref_name == 'master'
+        id: deployment
+        uses: actions/deploy-pages@v5
