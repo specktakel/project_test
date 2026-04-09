@@ -11,11 +11,13 @@ concurrency:
   group: "pages"
   cancel-in-progress: false
 
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
 jobs:
   build:
-    permissions:
-      contents: read
-      pages: write
     name: Build Docs
     runs-on: ubuntu-latest
     steps:
@@ -50,9 +52,6 @@ jobs:
   deploy:
     name: Deploy docs
     needs: build
-    permissions:
-      pages: write
-      id-token: write
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
