@@ -47,20 +47,5 @@ jobs:
         # Upload docs subdirectory
         path: './docs/_build'
 
-  deploy:
-    needs: build
-    permissions:
-      contents: read
-      pages: write
-      id-token: write
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    runs-on: ubuntu-latest
-    steps:
-      - name: Output url
-        run: echo ${{ steps.deployment.outputs.page_url }}
-      - name: Deploy to GitHub Pages
-        # if: github.event_name == 'push' && github.ref_name == 'master'
-        id: deployment
-        uses: actions/deploy-pages@v5
+    - name: Output url
+      run: echo ${{ steps.deployment.outputs.page_url }}
