@@ -47,7 +47,7 @@ jobs:
       uses: actions/upload-pages-artifact@v4
       with:
         # Upload docs subdirectory
-        path: './docs/_build'
+        path: './docs/_build/html'
 
   deploy:
     name: Deploy docs
@@ -58,6 +58,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Deploy to GitHub Pages
-        # if: github.event_name == 'push' && github.ref_name == 'master'
+        if: github.event_name == 'push' && github.ref_name == 'master'
         id: deployment
         uses: actions/deploy-pages@v5
