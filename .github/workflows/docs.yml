@@ -49,8 +49,14 @@ jobs:
         # Upload docs subdirectory
         path: './docs/_build/html'
 
+    - name: Print variables
+      run: |
+        echo ${{ github.event_name }}
+        echo ${{ github.ref_name }}
+
   deploy:
     name: Deploy docs
+    if: ${{ github.event_name == 'push' && github.ref_name == 'master' }}
     needs: build
     environment:
       name: github-pages
@@ -58,6 +64,5 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Deploy to GitHub Pages
-        if: github.event_name == 'push' && github.ref_name == 'master'
         id: deployment
         uses: actions/deploy-pages@v5
