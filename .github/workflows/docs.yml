@@ -47,11 +47,6 @@ jobs:
         # Upload docs subdirectory
         path: './docs/_build'
 
-    - name: Output url
-      run: | 
-        echo "$steps.deployment.outputs.page_url"
-
-
   deploy:
     name: Deploy docs
     needs: build
