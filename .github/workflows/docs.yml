@@ -44,8 +44,8 @@ jobs:
         python -m pip install --upgrade pip
         python -m pip install sphinx nbsphinx myst-parser
         python -m pip install .
-    - name: Download artifacts
-      uses: actions/download-artifacts@v6
+    - name: Download artifact
+      uses: actions/download-artifact@v6
       with:
         name: api-for-${{ github.sha }}
         path: docs/api
